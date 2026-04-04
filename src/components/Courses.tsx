@@ -1,24 +1,24 @@
-import { Layers, Wrench, Home, Square, Paintbrush, Thermometer, Shield, Sparkles, BrickWall, Box, Trash2, ShieldCheck, Mountain, Hammer, UserCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useRef, useEffect } from 'react';
 
 const courses = [
-  { name: 'Pladur / Drywall', icon: Layers, color: 'bg-orange-500' },
-  { name: 'Conferagem', icon: Wrench, color: 'bg-blue-500' },
-  { name: 'Carpentry', icon: Home, color: 'bg-yellow-600' },
-  { name: 'Roofing', icon: Square, color: 'bg-gray-500' },
-  { name: 'Tiles & Tiling', icon: Paintbrush, color: 'bg-green-500' },
-  { name: 'Floor Heating', icon: Thermometer, color: 'bg-red-500' },
-  { name: 'Isolation Systems', icon: Shield, color: 'bg-purple-500' },
-  { name: 'Plaster / Micro Cement', icon: Sparkles, color: 'bg-blue-400' },
-  { name: 'Brickers', icon: BrickWall, color: 'bg-orange-600' },
-  { name: 'Stock Management', icon: Box, color: 'bg-green-600' },
-  { name: 'Cleaning', icon: Trash2, color: 'bg-blue-300' },
-  { name: 'Security', icon: ShieldCheck, color: 'bg-red-600' },
-  { name: 'Outdoor Stone Wall Builder', icon: Mountain, color: 'bg-gray-600' },
-  { name: 'Steel Work', icon: Hammer, color: 'bg-gray-400' },
-  { name: 'Servente', icon: Box, color: 'bg-orange-400' },
-  { name: 'Team Leader', icon: UserCheck, color: 'bg-blue-600' },
-  { name: 'Wood Painter', icon: Paintbrush, color: 'bg-orange-500' },
+  { name: 'Pladur / Drywall' },
+  { name: 'Conferagem' },
+  { name: 'Carpentry' },
+  { name: 'Roofing' },
+  { name: 'Tiles & Tiling' },
+  { name: 'Floor Heating' },
+  { name: 'Isolation Systems' },
+  { name: 'Plaster / Micro Cement' },
+  { name: 'Brickers' },
+  { name: 'Stock Management' },
+  { name: 'Cleaning' },
+  { name: 'Security' },
+  { name: 'Outdoor Stone Wall Builder' },
+  { name: 'Steel Work' },
+  { name: 'Servente' },
+  { name: 'Team Leader' },
+  { name: 'Wood Painter' },
 ];
 
 export default function Courses() {
@@ -49,7 +49,7 @@ export default function Courses() {
         container.style.scrollSnapType = 'x mandatory';
       }
       // If we scroll too far right (into the third set), jump backward
-      else if (container.scrollLeft > singleSetWidth * 2) {
+      else if (container.scrollLeft > singleSetWidth * 1.5) {
         container.style.scrollSnapType = 'none';
         container.scrollLeft -= singleSetWidth;
         container.style.scrollSnapType = 'x mandatory';
@@ -72,10 +72,6 @@ export default function Courses() {
 
   return (
     <section id="courses" className="pt-32 pb-8 bg-[#15181b] relative border-t border-white/5 overflow-hidden">
-      {/* Yellow border accents */}
-      <div className="absolute left-6 top-0 bottom-0 w-[1px] bg-[#FFB800]/30 hidden md:block"></div>
-      <div className="absolute right-6 top-0 bottom-0 w-[1px] bg-[#FFB800]/30 hidden md:block"></div>
-
       <div className="max-w-6xl mx-auto px-6 relative">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight uppercase">
@@ -110,12 +106,18 @@ export default function Courses() {
             {infiniteCourses.map((course, index) => (
               <div 
                 key={index} 
-                className="bg-[#1a1d21] rounded-xl p-6 border border-white/5 hover:border-white/10 transition-colors cursor-pointer group min-w-[250px] sm:min-w-[280px] snap-start flex-shrink-0"
+                className="bg-gradient-to-br from-[#1a1d21] to-[#111315] rounded-xl p-6 border border-white/5 hover:border-[#FFB800]/30 hover:bg-[#1e2125] transition-all cursor-pointer group min-w-[260px] sm:min-w-[300px] snap-start flex-shrink-0 flex flex-col justify-between h-[180px] relative overflow-hidden"
               >
-                <div className={`w-10 h-10 rounded-lg ${course.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}>
-                  <course.icon size={20} />
+                <div className="absolute top-4 right-4 text-white/5 font-black text-6xl group-hover:text-white/10 transition-colors select-none">
+                  {String((index % courses.length) + 1).padStart(2, '0')}
                 </div>
-                <h3 className="text-white font-bold text-sm">{course.name}</h3>
+                <div className="relative z-10">
+                  <div className="text-[#FFB800] text-[10px] font-bold tracking-widest uppercase mb-3">Certification</div>
+                  <h3 className="text-white font-bold text-xl leading-tight w-4/5 group-hover:text-[#FFB800] transition-colors">{course.name}</h3>
+                </div>
+                <div className="relative z-10 flex items-center gap-2 text-gray-500 text-sm font-semibold group-hover:text-white transition-colors mt-4">
+                  View Details <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             ))}
           </div>

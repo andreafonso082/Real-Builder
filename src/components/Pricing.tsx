@@ -1,10 +1,28 @@
-import { Check, X, Globe } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useState } from 'react';
+import { Check, X, Globe, X as CloseIcon, Gift, CheckCircle2 } from 'lucide-react';
+import { motion, useInView, AnimatePresence } from 'motion/react';
+import { useState, useRef, useEffect } from 'react';
 import EnrollmentModal from './EnrollmentModal';
+import DiscountFormModal from './DiscountFormModal';
 
 export default function Pricing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showPromo, setShowPromo] = useState(false);
+  const [showDiscountForm, setShowDiscountForm] = useState(false);
+  const [hasDismissedPromo, setHasDismissedPromo] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+
+  useEffect(() => {
+    if (isInView && !hasDismissedPromo && !isMinimized && !isSubmitted) {
+      const timer = setTimeout(() => {
+        setShowPromo(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, hasDismissedPromo, isMinimized, isSubmitted]);
 
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -14,7 +32,7 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="py-32 bg-[#111315] relative border-t border-white/5">
+    <section id="pricing" ref={sectionRef} className="py-32 bg-[#111315] relative border-t border-white/5">
       {/* Yellow border accents */}
       <div className="absolute left-6 top-0 bottom-0 w-[1px] bg-[#FFB800]/30"></div>
       <div className="absolute right-6 top-0 bottom-0 w-[1px] bg-[#FFB800]/30"></div>
@@ -168,6 +186,119 @@ export default function Pricing() {
       </div>
 
       <EnrollmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      {/* Promo Popup */}
+      <AnimatePresence>
+        {showPromo && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              className="relative w-full max-w-md bg-gradient-to-b from-[#1a1d21] to-[#111315] border-2 border-[#FFB800] rounded-2xl shadow-[0_0_50px_rgba(255,184,0,0.15)] p-8 text-center overflow-hidden"
+            >
+              {/* Background glow effect */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-[#FFB800]/10 blur-3xl rounded-full pointer-events-none"></div>
+
+              <button 
+                onClick={() => {
+                  setShowPromo(false);
+                  setHasDismissedPromo(true);
+                  setIsMinimized(true);
+                }}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
+              >
+                <CloseIcon size={20} />
+              </button>
+              
+              <div className="relative z-10">
+                <div className="inline-block bg-[#FFB800]/10 border border-[#FFB800]/30 text-[#FFB800] text-xs font-black tracking-widest uppercase px-3 py-1 rounded-full mb-6">
+                  Special Offer
+                </div>
+                
+                <h4 className="text-white font-black text-3xl md:text-4xl mb-4 tracking-tight uppercase">
+                  Get <span className="text-[#FFB800]">50% OFF</span>
+                </h4>
+                
+                <p className="text-gray-300 text-base mb-6 leading-relaxed">
+                  We always have new offers! Claim a massive 50% discount on <strong>any course</strong> of your interest. 
+                </p>
+
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg py-3 px-4 mb-8">
+                  <span className="text-red-500 text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    Limited to the first 30 enrollments
+                  </span>
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    setShowPromo(false);
+                    setHasDismissedPromo(true);
+                    setShowDiscountForm(true);
+                  }}
+                  className="w-full bg-[#FFB800] text-black font-black py-4 rounded-xl text-lg tracking-widest hover:bg-white transition-colors shadow-[0_0_20px_rgba(255,184,0,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]"
+                >
+                  CLAIM DISCOUNT NOW
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Discount Form Modal */}
+      <DiscountFormModal 
+        isOpen={showDiscountForm} 
+        onClose={() => {
+          setShowDiscountForm(false);
+          setIsMinimized(true);
+        }} 
+        isSubmitted={isSubmitted}
+        onSubmit={() => {
+          setIsSubmitted(true);
+          setTimeout(() => {
+            setShowDiscountForm(false);
+            setIsMinimized(true);
+          }, 3000);
+        }}
+      />
+
+      {/* Minimized Floating Widget */}
+      <AnimatePresence>
+        {isMinimized && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            className="fixed bottom-6 left-6 z-50"
+          >
+            <button
+              onClick={() => {
+                setIsMinimized(false);
+                setShowDiscountForm(true);
+              }}
+              className={`flex items-center gap-3 px-5 py-3.5 rounded-full shadow-2xl border transition-all hover:scale-105 ${
+                isSubmitted 
+                  ? 'bg-[#111315] border-green-500/30 text-green-500 hover:bg-[#1a1d21]' 
+                  : 'bg-[#111315] border-[#FFB800]/30 text-[#FFB800] hover:bg-[#1a1d21]'
+              }`}
+            >
+              {isSubmitted ? (
+                <>
+                  <CheckCircle2 size={20} />
+                  <span className="text-xs font-bold tracking-widest uppercase">Discount Claimed</span>
+                </>
+              ) : (
+                <>
+                  <Gift size={20} />
+                  <span className="text-xs font-bold tracking-widest uppercase">Claim 50% OFF</span>
+                </>
+              )}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
