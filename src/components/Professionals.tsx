@@ -54,7 +54,7 @@ export default function Professionals() {
           {/* List Panel */}
           <div className="bg-[#1a1d21] rounded-2xl border border-white/10 p-6 flex flex-col h-[400px] lg:h-[450px]">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-white font-bold text-lg">Builders in Lisboa</h3>
+              <h3 className="text-white font-bold text-lg">Builders in Lisbon</h3>
               <span className="text-gray-400 text-xs">8 professionals</span>
             </div>
 

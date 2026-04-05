@@ -54,13 +54,10 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 md:gap-6">
-          <button 
-            onClick={toggleLang}
-            className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors text-xs font-semibold"
-          >
+          <div className="flex items-center gap-2 text-gray-300 transition-colors text-xs font-semibold">
             <Globe size={16} />
-            <span className="hidden sm:inline">{lang}</span>
-          </button>
+            <span className="hidden sm:inline">EN</span>
+          </div>
           
           {!isLoggedIn ? (
             <button 

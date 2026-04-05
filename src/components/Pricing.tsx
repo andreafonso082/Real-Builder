@@ -1,11 +1,9 @@
-import { Check, X, Globe, X as CloseIcon, Gift, CheckCircle2 } from 'lucide-react';
+import { Check, X, Globe, X as CloseIcon, CheckCircle2 } from 'lucide-react';
 import { motion, useInView, AnimatePresence } from 'motion/react';
 import { useState, useRef, useEffect } from 'react';
-import EnrollmentModal from './EnrollmentModal';
 import DiscountFormModal from './DiscountFormModal';
 
 export default function Pricing() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPromo, setShowPromo] = useState(false);
   const [showDiscountForm, setShowDiscountForm] = useState(false);
   const [hasDismissedPromo, setHasDismissedPromo] = useState(false);
@@ -119,7 +117,7 @@ export default function Pricing() {
             </ul>
 
             <button 
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => scrollTo('contact')}
               className="w-full bg-[#FFB800] text-black py-4 rounded-xl font-bold tracking-widest hover:bg-[#FFB800]/90 transition-colors"
             >
               SELECT PLAN
@@ -166,7 +164,7 @@ export default function Pricing() {
             </ul>
 
             <button 
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => scrollTo('contact')}
               className="w-full bg-white/5 border border-white/10 text-white py-4 rounded-xl font-bold tracking-widest hover:bg-white/10 transition-colors"
             >
               SELECT PLAN
@@ -184,8 +182,6 @@ export default function Pricing() {
           Please select a path above to continue
         </motion.div>
       </div>
-
-      <EnrollmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* Promo Popup */}
       <AnimatePresence>
@@ -268,33 +264,30 @@ export default function Pricing() {
       <AnimatePresence>
         {isMinimized && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-6 left-6 z-50"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 50 }}
+            className="fixed bottom-6 right-6 z-50"
           >
             <button
               onClick={() => {
                 setIsMinimized(false);
                 setShowDiscountForm(true);
               }}
-              className={`flex items-center gap-3 px-5 py-3.5 rounded-full shadow-2xl border transition-all hover:scale-105 ${
+              className={`group relative overflow-hidden flex items-center gap-4 px-6 py-4 shadow-2xl transition-all hover:-translate-y-1 ${
                 isSubmitted 
-                  ? 'bg-[#111315] border-green-500/30 text-green-500 hover:bg-[#1a1d21]' 
-                  : 'bg-[#111315] border-[#FFB800]/30 text-[#FFB800] hover:bg-[#1a1d21]'
+                  ? 'bg-[#0a0a0a] border border-white/10 border-l-4 border-l-green-500' 
+                  : 'bg-[#0a0a0a] border border-white/10 border-l-4 border-l-[#FFB800]'
               }`}
             >
-              {isSubmitted ? (
-                <>
-                  <CheckCircle2 size={20} />
-                  <span className="text-xs font-bold tracking-widest uppercase">Discount Claimed</span>
-                </>
-              ) : (
-                <>
-                  <Gift size={20} />
-                  <span className="text-xs font-bold tracking-widest uppercase">Claim 50% OFF</span>
-                </>
-              )}
+              <div className="flex flex-col items-start text-left relative z-10">
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-1">
+                  {isSubmitted ? 'Status: Secured' : 'Action Required'}
+                </span>
+                <span className={`text-sm font-black tracking-widest uppercase ${isSubmitted ? 'text-green-500' : 'text-[#FFB800]'}`}>
+                  {isSubmitted ? 'Discount Applied' : 'Claim 50% Off'}
+                </span>
+              </div>
             </button>
           </motion.div>
         )}

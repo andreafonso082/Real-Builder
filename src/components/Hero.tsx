@@ -2,35 +2,28 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 
 export default function Hero() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 29,
-    hours: 19,
-    minutes: 4,
-    seconds: 48
-  });
+  const calculateTimeLeft = () => {
+    // Target date: April 24, 2026, 18:00:00 Lisbon Time (UTC+1)
+    const targetDate = new Date('2026-04-24T18:00:00+01:00');
+    const now = new Date().getTime();
+    const difference = targetDate.getTime() - now;
+
+    if (difference > 0) {
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000)
+      };
+    }
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 29);
-    targetDate.setHours(targetDate.getHours() + 19);
-    targetDate.setMinutes(targetDate.getMinutes() + 4);
-    targetDate.setSeconds(targetDate.getSeconds() + 48);
-
     const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const difference = targetDate.getTime() - now;
-
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000)
-        });
-      } else {
-        clearInterval(interval);
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      }
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(interval);
@@ -91,7 +84,7 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#FFB800] animate-pulse" />
-            <span className="text-white font-medium tracking-wide text-sm">REGISTRATION OPENS IN</span>
+            <span className="text-white font-medium tracking-wide text-sm uppercase">Registration Closes In</span>
           </div>
           
           <div className="flex items-center gap-4 md:gap-6">

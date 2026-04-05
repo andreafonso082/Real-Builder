@@ -2,23 +2,15 @@ import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useRef, useEffect } from 'react';
 
 const courses = [
-  { name: 'Pladur / Drywall' },
-  { name: 'Conferagem' },
-  { name: 'Carpentry' },
-  { name: 'Roofing' },
   { name: 'Tiles & Tiling' },
-  { name: 'Floor Heating' },
-  { name: 'Isolation Systems' },
-  { name: 'Plaster / Micro Cement' },
-  { name: 'Brickers' },
-  { name: 'Stock Management' },
-  { name: 'Cleaning' },
-  { name: 'Security' },
-  { name: 'Outdoor Stone Wall Builder' },
+  { name: 'Plastering / Microcement' },
+  { name: 'Professional Cleaning' },
+  { name: 'Construction Assistant' },
+  { name: 'Masonry / Plastering' },
+  { name: 'Drywall (Pladur)' },
+  { name: 'Framing' },
   { name: 'Steel Work' },
-  { name: 'Servente' },
-  { name: 'Team Leader' },
-  { name: 'Wood Painter' },
+  { name: 'Stock Management / Logistics' },
 ];
 
 export default function Courses() {
@@ -115,8 +107,8 @@ export default function Courses() {
                   <div className="text-[#FFB800] text-[10px] font-bold tracking-widest uppercase mb-3">Certification</div>
                   <h3 className="text-white font-bold text-xl leading-tight w-4/5 group-hover:text-[#FFB800] transition-colors">{course.name}</h3>
                 </div>
-                <div className="relative z-10 flex items-center gap-2 text-gray-500 text-sm font-semibold group-hover:text-white transition-colors mt-4">
-                  View Details <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <div className="relative z-10 flex items-center gap-2 text-gray-500 text-sm font-semibold group-hover:text-white transition-colors mt-4 uppercase">
+                  Interested <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             ))}

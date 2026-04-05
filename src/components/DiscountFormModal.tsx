@@ -76,29 +76,29 @@ export default function DiscountFormModal({ isOpen, onClose, isSubmitted, onSubm
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label htmlFor="firstName" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Nome</label>
+                      <label htmlFor="firstName" className="text-xs font-bold text-gray-400 uppercase tracking-widest">First Name</label>
                       <input 
                         type="text" 
                         id="firstName" 
                         required
                         className="w-full bg-[#1a1d21] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
-                        placeholder="O seu nome"
+                        placeholder="Your first name"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="lastName" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Sobrenome</label>
+                      <label htmlFor="lastName" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Last Name</label>
                       <input 
                         type="text" 
                         id="lastName" 
                         required
                         className="w-full bg-[#1a1d21] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
-                        placeholder="O seu sobrenome"
+                        placeholder="Your last name"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="phone" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Nr de telemóvel</label>
+                    <label htmlFor="phone" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
                     <input 
                       type="tel" 
                       id="phone" 
@@ -115,29 +115,29 @@ export default function DiscountFormModal({ isOpen, onClose, isSubmitted, onSubm
                       id="email" 
                       required
                       className="w-full bg-[#1a1d21] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
-                      placeholder="exemplo@email.com"
+                      placeholder="example@email.com"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label htmlFor="city" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Cidade</label>
+                      <label htmlFor="city" className="text-xs font-bold text-gray-400 uppercase tracking-widest">City</label>
                       <input 
                         type="text" 
                         id="city" 
                         required
                         className="w-full bg-[#1a1d21] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
-                        placeholder="Sua cidade"
+                        placeholder="Your city"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="district" className="text-xs font-bold text-gray-400 uppercase tracking-widest">Distrito</label>
+                      <label htmlFor="district" className="text-xs font-bold text-gray-400 uppercase tracking-widest">District</label>
                       <input 
                         type="text" 
                         id="district" 
                         required
                         className="w-full bg-[#1a1d21] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
-                        placeholder="Seu distrito"
+                        placeholder="Your district"
                       />
                     </div>
                   </div>
@@ -150,10 +150,10 @@ export default function DiscountFormModal({ isOpen, onClose, isSubmitted, onSubm
                     {isSubmitting ? (
                       <>
                         <Loader2 size={18} className="animate-spin" />
-                        A processar...
+                        Processing...
                       </>
                     ) : (
-                      'Submeter Pedido'
+                      'Submit Request'
                     )}
                   </button>
                 </form>

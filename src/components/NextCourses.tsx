@@ -38,49 +38,49 @@ export default function NextCourses() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Course Card 1 */}
           <div className="p-8 relative flex flex-col h-full bg-[#1a1d21] rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-6 w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
-              Registration Closed
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFB800]/10 border border-[#FFB800]/20 text-[#FFB800] text-xs font-medium mb-6 w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB800] animate-pulse"></span>
+              Registration Open
             </div>
-            <div className="text-[#FFB800] text-xs font-bold tracking-widest uppercase mb-2">TILES & TILING</div>
-            <h3 className="text-2xl font-bold text-white mb-8">Professional Tile Installation</h3>
+            <div className="text-[#FFB800] text-xs font-bold tracking-widest uppercase mb-2">IMPORTANT DEADLINE</div>
+            <h3 className="text-2xl font-bold text-white mb-8">Registration Deadline</h3>
             
             <div className="space-y-4 mb-8">
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
                 <span className="text-gray-500 text-sm">Date</span>
-                <span className="text-white text-sm font-medium">February 1, 2026</span>
+                <span className="text-white text-sm font-medium">April 24, 2026</span>
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
-                <span className="text-gray-500 text-sm">Location</span>
-                <span className="text-white text-sm font-medium">Porto, Portugal</span>
+                <span className="text-gray-500 text-sm">Time</span>
+                <span className="text-white text-sm font-medium">18:00 (Lisbon Time)</span>
               </div>
             </div>
 
             <button 
               onClick={() => scrollTo('contact')}
-              className="w-full bg-white text-black hover:bg-[#FFB800] py-3.5 rounded-xl font-bold text-sm tracking-wide transition-colors mt-auto"
+              className="w-full bg-[#FFB800] text-black hover:bg-white py-3.5 rounded-xl font-bold text-sm tracking-wide transition-colors mt-auto"
             >
-              NOTIFY ME
+              REGISTER NOW
             </button>
           </div>
 
           {/* Course Card 2 */}
           <div className="p-8 relative flex flex-col h-full bg-[#1a1d21] rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-6 w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
-              Registration Closed
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              Upcoming
             </div>
-            <div className="text-[#FFB800] text-xs font-bold tracking-widest uppercase mb-2">FLOOR HEATING</div>
-            <h3 className="text-2xl font-bold text-white mb-8">Underfloor Heating Installation</h3>
+            <div className="text-[#FFB800] text-xs font-bold tracking-widest uppercase mb-2">NEW SEASON</div>
+            <h3 className="text-2xl font-bold text-white mb-8">First 2 Courses Start</h3>
             
             <div className="space-y-4 mb-8">
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
                 <span className="text-gray-500 text-sm">Date</span>
-                <span className="text-white text-sm font-medium">February 15, 2026</span>
+                <span className="text-white text-sm font-medium">May 22, 2026</span>
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
-                <span className="text-gray-500 text-sm">Location</span>
-                <span className="text-white text-sm font-medium">Lisbon, Portugal</span>
+                <span className="text-gray-500 text-sm">Courses</span>
+                <span className="text-white text-sm font-medium italic">To be defined</span>
               </div>
             </div>
 
@@ -96,34 +96,49 @@ export default function NextCourses() {
           <div className="p-8 relative flex flex-col h-full bg-[#1a1d21] rounded-2xl border border-white/5">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-lg font-bold text-white">Course Calendar</h3>
-              <button className="text-[#FFB800] hover:text-white text-xs font-bold tracking-widest uppercase transition-colors">
+              <button 
+                onClick={() => setIsCalendarOpen(true)}
+                className="text-[#FFB800] hover:text-white text-xs font-bold tracking-widest uppercase transition-colors"
+              >
                 EXPAND
               </button>
             </div>
 
             {/* Compact Upcoming Dates List */}
             <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-[#FFB800]/5 border border-[#FFB800]/10">
                 <div className="text-center min-w-[48px]">
-                  <div className="text-[#FFB800] text-[10px] font-bold uppercase">Feb</div>
-                  <div className="text-white text-xl font-black">01</div>
+                  <div className="text-[#FFB800] text-[10px] font-bold uppercase">Apr</div>
+                  <div className="text-white text-xl font-black">24</div>
                 </div>
                 <div className="w-px h-10 bg-white/10"></div>
                 <div>
-                  <div className="text-white font-bold text-sm">Tile Installation</div>
-                  <div className="text-gray-400 text-xs mt-0.5">Porto, Portugal</div>
+                  <div className="text-white font-bold text-sm">Registration Deadline</div>
+                  <div className="text-gray-400 text-xs mt-0.5">18:00 Lisbon Time</div>
                 </div>
               </div>
               
               <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="text-center min-w-[48px]">
-                  <div className="text-[#FFB800] text-[10px] font-bold uppercase">Feb</div>
-                  <div className="text-white text-xl font-black">15</div>
+                  <div className="text-[#FFB800] text-[10px] font-bold uppercase">May</div>
+                  <div className="text-white text-xl font-black">22</div>
                 </div>
                 <div className="w-px h-10 bg-white/10"></div>
                 <div>
-                  <div className="text-white font-bold text-sm">Underfloor Heating</div>
-                  <div className="text-gray-400 text-xs mt-0.5">Lisbon, Portugal</div>
+                  <div className="text-white font-bold text-sm">First 2 Courses</div>
+                  <div className="text-gray-400 text-xs mt-0.5 italic">To be defined</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="text-center min-w-[48px]">
+                  <div className="text-[#FFB800] text-[10px] font-bold uppercase">Jun</div>
+                  <div className="text-white text-xl font-black">26</div>
+                </div>
+                <div className="w-px h-10 bg-white/10"></div>
+                <div>
+                  <div className="text-white font-bold text-sm">Next 2 Courses</div>
+                  <div className="text-gray-400 text-xs mt-0.5 italic">To be defined</div>
                 </div>
               </div>
             </div>
@@ -164,72 +179,6 @@ export default function NextCourses() {
             {/* Modal Body - Scrollable */}
             <div className="p-8 overflow-y-auto flex-1">
               <div className="space-y-12">
-                {/* February */}
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-400 tracking-widest uppercase mb-6 flex items-center gap-4">
-                    February 2026
-                    <span className="h-[1px] flex-1 bg-white/10"></span>
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
-                      <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
-                        <div className="text-xs font-bold text-gray-500 uppercase">FEB</div>
-                        <div className="text-2xl font-black text-white leading-none mt-2">01</div>
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">Tiles & Tiling</div>
-                        <div className="text-white font-semibold mb-2">Professional Tile Installation</div>
-                        <div className="text-gray-400 text-xs">Porto, Portugal</div>
-                      </div>
-                    </div>
-
-                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
-                      <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
-                        <div className="text-xs font-bold text-gray-500 uppercase">FEB</div>
-                        <div className="text-2xl font-black text-white leading-none mt-2">15</div>
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">Floor Heating</div>
-                        <div className="text-white font-semibold mb-2">Underfloor Heating</div>
-                        <div className="text-gray-400 text-xs">Lisbon, Portugal</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* March */}
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-400 tracking-widest uppercase mb-6 flex items-center gap-4">
-                    March 2026
-                    <span className="h-[1px] flex-1 bg-white/10"></span>
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
-                      <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
-                        <div className="text-xs font-bold text-gray-500 uppercase">MAR</div>
-                        <div className="text-2xl font-black text-white leading-none mt-2">10</div>
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">Plumbing</div>
-                        <div className="text-white font-semibold mb-2">Advanced Pipe Systems</div>
-                        <div className="text-gray-400 text-xs">Faro, Portugal</div>
-                      </div>
-                    </div>
-
-                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
-                      <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
-                        <div className="text-xs font-bold text-gray-500 uppercase">MAR</div>
-                        <div className="text-2xl font-black text-white leading-none mt-2">22</div>
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">Carpentry</div>
-                        <div className="text-white font-semibold mb-2">Structural Woodwork</div>
-                        <div className="text-gray-400 text-xs">Braga, Portugal</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
                 {/* April */}
                 <div>
                   <h4 className="text-sm font-semibold text-gray-400 tracking-widest uppercase mb-6 flex items-center gap-4">
@@ -237,15 +186,57 @@ export default function NextCourses() {
                     <span className="h-[1px] flex-1 bg-white/10"></span>
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
+                    <div className="border-2 border-[#FFB800] p-6 flex gap-6 bg-[#FFB800]/5 transition-colors">
                       <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
-                        <div className="text-xs font-bold text-gray-500 uppercase">APR</div>
-                        <div className="text-2xl font-black text-white leading-none mt-2">05</div>
+                        <div className="text-xs font-bold text-[#FFB800] uppercase">APR</div>
+                        <div className="text-2xl font-black text-white leading-none mt-2">24</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">Electrical</div>
-                        <div className="text-white font-semibold mb-2">Smart Home Wiring</div>
-                        <div className="text-gray-400 text-xs">Lisbon, Portugal</div>
+                        <div className="text-xs text-[#FFB800] font-bold tracking-widest uppercase mb-2">Deadline</div>
+                        <div className="text-white font-semibold mb-2">Registration Deadline</div>
+                        <div className="text-gray-400 text-xs">18:00 Lisbon Time</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* May */}
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-400 tracking-widest uppercase mb-6 flex items-center gap-4">
+                    May 2026
+                    <span className="h-[1px] flex-1 bg-white/10"></span>
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
+                      <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
+                        <div className="text-xs font-bold text-gray-500 uppercase">MAY</div>
+                        <div className="text-2xl font-black text-white leading-none mt-2">22</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">New Season</div>
+                        <div className="text-white font-semibold mb-2">First 2 Courses Start</div>
+                        <div className="text-gray-400 text-xs italic">To be defined</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* June */}
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-400 tracking-widest uppercase mb-6 flex items-center gap-4">
+                    June 2026
+                    <span className="h-[1px] flex-1 bg-white/10"></span>
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="border border-white/10 p-6 flex gap-6 hover:border-white/30 transition-colors">
+                      <div className="text-center min-w-[60px] flex flex-col justify-center border-r border-white/10 pr-6">
+                        <div className="text-xs font-bold text-gray-500 uppercase">JUN</div>
+                        <div className="text-2xl font-black text-white leading-none mt-2">26</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">Next Phase</div>
+                        <div className="text-white font-semibold mb-2">Next 2 Courses Start</div>
+                        <div className="text-gray-400 text-xs italic">To be defined</div>
                       </div>
                     </div>
                   </div>
