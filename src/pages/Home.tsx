@@ -1,4 +1,5 @@
 import Hero from '../components/Hero';
+import PilotProgram from '../components/PilotProgram';
 import AboutUs from '../components/AboutUs';
 import HowItWorks from '../components/HowItWorks';
 import Pricing from '../components/Pricing';
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <PilotProgram />
       <AboutUs />
       <HowItWorks />
       <Pricing />

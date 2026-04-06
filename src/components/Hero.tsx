@@ -84,7 +84,11 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#FFB800] animate-pulse" />
-            <span className="text-white font-medium tracking-wide text-sm uppercase">Registration Closes In</span>
+            <span className="text-white font-medium tracking-wide text-sm uppercase">
+              {timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 
+                ? "Registrations Are Open" 
+                : "Registration Opens In"}
+            </span>
           </div>
           
           <div className="flex items-center gap-4 md:gap-6">

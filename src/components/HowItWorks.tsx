@@ -135,7 +135,12 @@ export default function HowItWorks() {
                   MEMBERS ONLY
                 </div>
                 <div className="w-24 h-24 rounded-full border-2 border-[#FFB800] overflow-hidden relative z-10 group-hover:shadow-[0_0_30px_rgba(255,184,0,0.4)] transition-shadow duration-300">
-                  <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop" alt="Vehicle" className="w-full h-full object-cover" />
+                  <img 
+                    src="https://lh3.googleusercontent.com/d/1iefT26tARQu5H7tEhmmHCtvf8b8RAlsN" 
+                    alt="Vehicle" 
+                    className="w-full h-full object-cover" 
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
               </div>
               <h3 className="text-[#FFB800] font-bold text-xl uppercase tracking-wider text-center mb-3">GET YOUR VEHICLE</h3>

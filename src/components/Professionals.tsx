@@ -1,10 +1,24 @@
 import { MapPin, Star, Lock } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Map from './Map';
 
 export default function Professionals() {
   const [activeFilter, setActiveFilter] = useState('All Professions');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const professions = ['All Professions', 'Electrician', 'Plumber', 'Carpenter', 'Mason', 'Painter', 'Roofer', 'Welder', 'Tiler'];
+
+  const trainingImages = [
+    "https://lh3.googleusercontent.com/d/1or_VmB1l6vgMna1kvO8qKdNQgjX-0DE6",
+    "https://lh3.googleusercontent.com/d/1yk-FDB_hW--OjTJMjhJ1fZFNpx5wIzLH",
+    "https://lh3.googleusercontent.com/d/1pjygJuSQ4ynVRlvOBDQTWSAMmrk9rzsx"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % trainingImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="professionals" className="py-32 bg-[#111315] relative border-t border-white/5">
@@ -247,9 +261,19 @@ export default function Professionals() {
 
           {/* Image Panel */}
           <div className="bg-[#1a1d21] rounded-2xl border border-white/10 overflow-hidden relative h-[400px] lg:h-[450px]">
-            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop" alt="Professional working" className="w-full h-full object-cover" />
-            <div className="absolute top-4 right-4 text-black font-black text-xs bg-white/80 px-2 py-1 rounded backdrop-blur-sm">
-              PROJECT MANAGEMENT
+            {trainingImages.map((img, index) => (
+              <img 
+                key={img}
+                src={img} 
+                alt={`Builder in training ${index + 1}`} 
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+                referrerPolicy="no-referrer"
+              />
+            ))}
+            <div className="absolute top-4 right-4 text-black font-black text-xs bg-white/80 px-2 py-1 rounded backdrop-blur-sm z-10">
+              BUILDERS UNDER TRAINING
             </div>
           </div>
         </div>

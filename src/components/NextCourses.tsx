@@ -4,6 +4,35 @@ import { useState, useEffect } from 'react';
 export default function NextCourses() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
+  const calculateTimeLeft = () => {
+    // Target date: April 24, 2026, 18:00:00 Lisbon Time (UTC+1)
+    const targetDate = new Date('2026-04-24T18:00:00+01:00');
+    const now = new Date().getTime();
+    const difference = targetDate.getTime() - now;
+
+    if (difference > 0) {
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000)
+      };
+    }
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const pad = (num: number) => num.toString().padStart(2, '0');
+
   useEffect(() => {
     if (isCalendarOpen) {
       document.body.style.overflow = 'hidden';
@@ -18,8 +47,15 @@ export default function NextCourses() {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: id === 'contact-form' ? 'center' : 'start'
+      });
     }
+  };
+
+  const openNotifyMe = () => {
+    window.dispatchEvent(new CustomEvent('openNotifyMe'));
   };
 
   return (
@@ -40,7 +76,9 @@ export default function NextCourses() {
           <div className="p-8 relative flex flex-col h-full bg-[#1a1d21] rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFB800]/10 border border-[#FFB800]/20 text-[#FFB800] text-xs font-medium mb-6 w-fit">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FFB800] animate-pulse"></span>
-              Registration Open
+              {timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 
+                ? "Registrations Are Open" 
+                : "Registration Opens In"}
             </div>
             <div className="text-[#FFB800] text-xs font-bold tracking-widest uppercase mb-2">IMPORTANT DEADLINE</div>
             <h3 className="text-2xl font-bold text-white mb-8">Registration Deadline</h3>
@@ -54,13 +92,36 @@ export default function NextCourses() {
                 <span className="text-gray-500 text-sm">Time</span>
                 <span className="text-white text-sm font-medium">18:00 (Lisbon Time)</span>
               </div>
+              <div className="flex justify-between items-center pt-2">
+                <div className="flex items-center gap-2 md:gap-3 w-full justify-between">
+                  <div className="flex flex-col items-center">
+                    <span className="text-[#FFB800] text-xl font-black">{pad(timeLeft.days)}</span>
+                    <span className="text-gray-400 text-[8px] tracking-widest">DAYS</span>
+                  </div>
+                  <span className="text-white/20 text-xl font-light pb-2">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-[#FFB800] text-xl font-black">{pad(timeLeft.hours)}</span>
+                    <span className="text-gray-400 text-[8px] tracking-widest">HOURS</span>
+                  </div>
+                  <span className="text-white/20 text-xl font-light pb-2">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-[#FFB800] text-xl font-black">{pad(timeLeft.minutes)}</span>
+                    <span className="text-gray-400 text-[8px] tracking-widest">MINS</span>
+                  </div>
+                  <span className="text-white/20 text-xl font-light pb-2">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-[#FFB800] text-xl font-black">{pad(timeLeft.seconds)}</span>
+                    <span className="text-gray-400 text-[8px] tracking-widest">SECS</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <button 
-              onClick={() => scrollTo('contact')}
-              className="w-full bg-[#FFB800] text-black hover:bg-white py-3.5 rounded-xl font-bold text-sm tracking-wide transition-colors mt-auto"
+              onClick={openNotifyMe}
+              className="w-full bg-white text-black hover:bg-[#FFB800] py-3.5 rounded-xl font-bold text-sm tracking-wide transition-colors mt-auto"
             >
-              REGISTER NOW
+              NOTIFY ME
             </button>
           </div>
 
@@ -85,7 +146,7 @@ export default function NextCourses() {
             </div>
 
             <button 
-              onClick={() => scrollTo('contact')}
+              onClick={openNotifyMe}
               className="w-full bg-white text-black hover:bg-[#FFB800] py-3.5 rounded-xl font-bold text-sm tracking-wide transition-colors mt-auto"
             >
               NOTIFY ME

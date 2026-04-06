@@ -25,8 +25,16 @@ export default function Pricing() {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: id === 'contact-form' ? 'center' : 'start'
+      });
     }
+  };
+
+  const handleSelectPlan = (planId: string) => {
+    window.dispatchEvent(new CustomEvent('planSelected', { detail: planId }));
+    scrollTo('contact-form');
   };
 
   return (
@@ -96,20 +104,40 @@ export default function Pricing() {
               <li className="flex items-center gap-3 text-white text-sm font-semibold">
                 <Check size={16} className="text-[#22c55e]" /> VEHICLE
               </li>
-              <li className="flex items-center gap-3 text-white text-sm font-semibold">
+              <li className="flex items-center gap-3 text-white text-sm font-semibold relative group cursor-help">
                 <Check size={16} className="text-[#22c55e]" /> RB MEMBERSHIP
+                <div className="absolute bottom-full left-0 mb-2 w-56 bg-[#1a1d21] border border-white/10 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-xl">
+                  <div className="text-xs font-normal text-gray-300 whitespace-pre-line leading-relaxed">
+                    RB Section ID{"\n"}Tablet with RB App{"\n"}Online Shop Discount{"\n"}Follow Up training 3x/year{"\n"}Visible and Promoted on Website{"\n"}Guide Maintenance
+                  </div>
+                </div>
               </li>
-              <li className="flex items-center gap-3 text-white text-sm font-semibold">
+              <li className="flex items-center gap-3 text-white text-sm font-semibold relative group cursor-help">
                 <Check size={16} className="text-[#22c55e]" /> WORKWEAR
+                <div className="absolute bottom-full left-0 mb-2 w-48 bg-[#1a1d21] border border-white/10 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-xl">
+                  <div className="text-xs font-normal text-gray-300 whitespace-pre-line leading-relaxed">
+                    Pants{"\n"}Helmet{"\n"}Shoes{"\n"}Shirt{"\n"}Vest
+                  </div>
+                </div>
               </li>
-              <li className="flex items-center gap-3 text-white text-sm font-semibold">
+              <li className="flex items-center gap-3 text-white text-sm font-semibold relative group cursor-help">
                 <Check size={16} className="text-[#22c55e]" /> PM SOFTWARE
+                <div className="absolute bottom-full left-0 mb-2 w-48 bg-[#1a1d21] border border-white/10 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-xl">
+                  <div className="text-xs font-normal text-gray-300 whitespace-pre-line leading-relaxed">
+                    Quotes{"\n"}Invoice{"\n"}Project Management{"\n"}Payments{"\n"}Time Tracking{"\n"}Tool Check Up
+                  </div>
+                </div>
               </li>
               <li className="flex items-center gap-3 text-white text-sm font-semibold">
                 <Check size={16} className="text-[#22c55e]" /> MOBILE WORKSHOP ACCESS
               </li>
-              <li className="flex items-center gap-3 text-white text-sm font-semibold">
+              <li className="flex items-center gap-3 text-white text-sm font-semibold relative group cursor-help">
                 <Check size={16} className="text-[#22c55e]" /> JOB PLACEMENT SUPPORT
+                <div className="absolute bottom-full left-0 mb-2 w-48 bg-[#1a1d21] border border-white/10 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-xl">
+                  <div className="text-xs font-normal text-gray-300 whitespace-pre-line leading-relaxed">
+                    Work in the World{"\n\n"}Internal{"\n"}National{"\n"}International
+                  </div>
+                </div>
               </li>
               <li className="flex items-center gap-3 text-white text-sm font-semibold">
                 <Globe size={16} className="text-[#FFB800]" /> GLOBAL MARKETING SUPPORT
@@ -117,7 +145,7 @@ export default function Pricing() {
             </ul>
 
             <button 
-              onClick={() => scrollTo('contact')}
+              onClick={() => handleSelectPlan('course_vehicle')}
               className="w-full bg-[#FFB800] text-black py-4 rounded-xl font-bold tracking-widest hover:bg-[#FFB800]/90 transition-colors"
             >
               SELECT PLAN
@@ -164,7 +192,7 @@ export default function Pricing() {
             </ul>
 
             <button 
-              onClick={() => scrollTo('contact')}
+              onClick={() => handleSelectPlan('course_only')}
               className="w-full bg-white/5 border border-white/10 text-white py-4 rounded-xl font-bold tracking-widest hover:bg-white/10 transition-colors"
             >
               SELECT PLAN
@@ -213,17 +241,17 @@ export default function Pricing() {
                 </div>
                 
                 <h4 className="text-white font-black text-3xl md:text-4xl mb-4 tracking-tight uppercase">
-                  Get <span className="text-[#FFB800]">50% OFF</span>
+                  Get <span className="text-[#FFB800]">100% OFF</span>
                 </h4>
                 
                 <p className="text-gray-300 text-base mb-6 leading-relaxed">
-                  We always have new offers! Claim a massive 50% discount on <strong>any course</strong> of your interest. 
+                  We always have new offers! Claim a massive 100% discount on <strong>any course</strong> of your interest. 
                 </p>
 
                 <div className="bg-red-500/10 border border-red-500/20 rounded-lg py-3 px-4 mb-8">
                   <span className="text-red-500 text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                    Limited to the first 30 enrollments
+                    20 get 50% off - 2 get 100% off
                   </span>
                 </div>
                 
@@ -235,7 +263,7 @@ export default function Pricing() {
                   }}
                   className="w-full bg-[#FFB800] text-black font-black py-4 rounded-xl text-lg tracking-widest hover:bg-white transition-colors shadow-[0_0_20px_rgba(255,184,0,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]"
                 >
-                  CLAIM DISCOUNT NOW
+                  CLAIM YOUR SPOT
                 </button>
               </div>
             </motion.div>
@@ -285,7 +313,7 @@ export default function Pricing() {
                   {isSubmitted ? 'Status: Secured' : 'Action Required'}
                 </span>
                 <span className={`text-sm font-black tracking-widest uppercase ${isSubmitted ? 'text-green-500' : 'text-[#FFB800]'}`}>
-                  {isSubmitted ? 'Discount Applied' : 'Claim 50% Off'}
+                  {isSubmitted ? 'Discount Applied' : 'Claim 100% Off'}
                 </span>
               </div>
             </button>

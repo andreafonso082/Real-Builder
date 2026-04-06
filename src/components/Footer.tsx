@@ -15,10 +15,14 @@ export default function Footer() {
             <Link 
               to="/"
               onClick={scrollToTop}
-              className="text-white font-bold text-xl tracking-tighter flex flex-col items-start leading-none mb-4 cursor-pointer"
+              className="cursor-pointer mb-4"
             >
-              <span className="text-2xl">RB</span>
-              <span className="text-[0.4rem] tracking-widest">REAL BUILDER</span>
+              <img 
+                src="https://lh3.googleusercontent.com/d/1JcDlCqhCcECmb6aCnMHr_G_Qj-FeGBHn" 
+                alt="Real Builder Logo" 
+                className="h-20 w-auto object-contain"
+                referrerPolicy="no-referrer"
+              />
             </Link>
             <p className="text-gray-400 mt-2 max-w-xs">
               Empowering the next generation of builders with practical skills, vehicles, and global opportunities.

@@ -1,9 +1,28 @@
 import { Send, ChevronDown, Upload } from 'lucide-react';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 
 export default function Contact() {
   const [selectedPlan, setSelectedPlan] = useState('');
+  const [selectedVehicle, setSelectedVehicle] = useState('');
   const [fileName, setFileName] = useState('');
+
+  useEffect(() => {
+    const handlePlanSelection = (e: CustomEvent) => {
+      setSelectedPlan(e.detail);
+    };
+    
+    const handleVehicleSelection = (e: CustomEvent) => {
+      setSelectedVehicle(e.detail);
+    };
+    
+    window.addEventListener('planSelected', handlePlanSelection as EventListener);
+    window.addEventListener('vehicleSelected', handleVehicleSelection as EventListener);
+    
+    return () => {
+      window.removeEventListener('planSelected', handlePlanSelection as EventListener);
+      window.removeEventListener('vehicleSelected', handleVehicleSelection as EventListener);
+    };
+  }, []);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -23,7 +42,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="bg-[#111315] rounded-3xl p-8 md:p-12 border border-white/10">
+        <div id="contact-form" className="bg-[#111315] rounded-3xl p-8 md:p-12 border border-white/10">
           <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Message sent successfully!'); }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -53,6 +72,16 @@ export default function Contact() {
                 required
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
                 placeholder="john@example.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-2">City</label>
+              <input 
+                type="text" 
+                required
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors"
+                placeholder="Lisbon"
               />
             </div>
 
@@ -108,14 +137,15 @@ export default function Contact() {
                         <div className="relative">
                           <select 
                             required
-                            defaultValue=""
+                            value={selectedVehicle}
+                            onChange={(e) => setSelectedVehicle(e.target.value)}
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors appearance-none"
                           >
                             <option value="" disabled className="bg-[#111315] text-gray-400">Select a vehicle...</option>
-                            <option value="standard_van" className="bg-[#111315] text-white">Standard Cargo Van</option>
-                            <option value="large_van" className="bg-[#111315] text-white">Large Cargo Van</option>
-                            <option value="electric_van" className="bg-[#111315] text-white">Electric Van (EV)</option>
-                            <option value="pickup" className="bg-[#111315] text-white">Pickup Truck</option>
+                            <option value="mobile_toolbox" className="bg-[#111315] text-white">Mobile Toolbox</option>
+                            <option value="electric_3_wheeler" className="bg-[#111315] text-white">Electric 3-Wheeler</option>
+                            <option value="tool_buggy" className="bg-[#111315] text-white">Tool Buggy / Quad</option>
+                            <option value="tool_van" className="bg-[#111315] text-white">Tool Van</option>
                           </select>
                           <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                         </div>

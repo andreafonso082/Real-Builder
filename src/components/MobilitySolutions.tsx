@@ -1,6 +1,19 @@
 import { Key, Zap, Car, Truck } from 'lucide-react';
 
 export default function MobilitySolutions() {
+  const handleSelectVehicle = (vehicleId: string) => {
+    window.dispatchEvent(new CustomEvent('planSelected', { detail: 'course_vehicle' }));
+    window.dispatchEvent(new CustomEvent('vehicleSelected', { detail: vehicleId }));
+    
+    const element = document.getElementById('contact-form');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
   return (
     <section id="mobility" className="py-24 bg-[#111315] relative border-t border-white/5">
       {/* Yellow border accents */}
@@ -16,12 +29,16 @@ export default function MobilitySolutions() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: Mobile Toolbox */}
-          <div className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-white/5 flex flex-col">
-            <div className="h-48 bg-white relative">
+          <button 
+            onClick={() => handleSelectVehicle('mobile_toolbox')}
+            className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:border-[#FFB800]/50 transition-colors text-left w-full cursor-pointer"
+          >
+            <div className="h-48 bg-white relative w-full">
               <img 
-                src="https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?q=80&w=2070&auto=format&fit=crop" 
+                src="https://lh3.googleusercontent.com/d/1n1hlKM4AOQ9g73HteeUgPm0a6KE-W1X7" 
                 alt="Mobile Toolbox" 
                 className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div className="p-6 flex flex-col items-center text-center flex-grow">
@@ -39,15 +56,19 @@ export default function MobilitySolutions() {
                 <span className="text-gray-500 text-xs">/ month</span>
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Card 2: Electric 3-Wheeler */}
-          <div className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-white/5 flex flex-col">
-            <div className="h-48 bg-gray-300 relative">
+          <button 
+            onClick={() => handleSelectVehicle('electric_3_wheeler')}
+            className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:border-[#FFB800]/50 transition-colors text-left w-full cursor-pointer"
+          >
+            <div className="h-48 bg-gray-300 relative w-full">
               <img 
-                src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop" 
+                src="https://lh3.googleusercontent.com/d/1xVu-eCm-bBAUQMkCPX77Hk40JcpMqs9N" 
                 alt="Electric 3-Wheeler" 
                 className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div className="p-6 flex flex-col items-center text-center flex-grow">
@@ -65,18 +86,22 @@ export default function MobilitySolutions() {
                 <span className="text-gray-500 text-xs">/ month</span>
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Card 3: Tool Buggy / Quad */}
-          <div className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-[#FFB800]/30 flex flex-col relative transform lg:-translate-y-2 shadow-[0_0_30px_rgba(255,184,0,0.1)]">
+          <button 
+            onClick={() => handleSelectVehicle('tool_buggy')}
+            className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-[#FFB800]/30 flex flex-col relative transform lg:-translate-y-2 shadow-[0_0_30px_rgba(255,184,0,0.1)] hover:border-[#FFB800] transition-colors text-left w-full cursor-pointer"
+          >
             <div className="absolute top-0 left-0 right-0 bg-[#FFB800] text-black text-[10px] font-bold text-center py-1 z-10 tracking-widest uppercase">
               MOST POPULAR
             </div>
-            <div className="h-48 bg-gray-400 relative mt-6">
+            <div className="h-48 bg-gray-400 relative mt-6 w-full">
               <img 
-                src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=2157&auto=format&fit=crop" 
+                src="https://lh3.googleusercontent.com/d/1-rzX3X8Lf-3bFpC1auxN_RREX_4ldFwa" 
                 alt="Tool Buggy / Quad" 
                 className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div className="p-6 flex flex-col items-center text-center flex-grow">
@@ -94,15 +119,19 @@ export default function MobilitySolutions() {
                 <span className="text-gray-500 text-xs">/ month</span>
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Card 4: Tool Van */}
-          <div className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-white/5 flex flex-col">
-            <div className="h-48 bg-gray-500 relative">
+          <button 
+            onClick={() => handleSelectVehicle('tool_van')}
+            className="bg-[#1a1d21] rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:border-[#FFB800]/50 transition-colors text-left w-full cursor-pointer"
+          >
+            <div className="h-48 bg-gray-500 relative w-full">
               <img 
-                src="https://images.unsplash.com/photo-1583423230902-b653afbc61aa?q=80&w=1974&auto=format&fit=crop" 
+                src="https://lh3.googleusercontent.com/d/1iefT26tARQu5H7tEhmmHCtvf8b8RAlsN" 
                 alt="Tool Van" 
                 className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div className="p-6 flex flex-col items-center text-center flex-grow">
@@ -120,7 +149,7 @@ export default function MobilitySolutions() {
                 <span className="text-gray-500 text-xs">/ month</span>
               </div>
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </section>

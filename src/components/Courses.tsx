@@ -25,23 +25,30 @@ export default function Courses() {
 
     // Initialize scroll position to the middle set to allow scrolling left immediately
     const initScroll = () => {
-      container.scrollLeft = container.scrollWidth / 3;
+      const children = container.children;
+      if (children.length >= courses.length) {
+        const singleSetWidth = (children[courses.length] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft;
+        container.scrollLeft = singleSetWidth;
+      }
     };
     
     // Small delay to ensure rendering is complete
     setTimeout(initScroll, 100);
 
     const handleScroll = () => {
-      const singleSetWidth = container.scrollWidth / 3;
+      const children = container.children;
+      if (children.length < courses.length * 2) return;
       
-      // If we scroll too far left (into the first set), jump forward
-      if (container.scrollLeft < singleSetWidth / 2) {
+      const singleSetWidth = (children[courses.length] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft;
+      
+      // Jump forward if we scroll too far left (into the first half of the first set)
+      if (container.scrollLeft < singleSetWidth * 0.5) {
         container.style.scrollSnapType = 'none';
         container.scrollLeft += singleSetWidth;
         container.style.scrollSnapType = 'x mandatory';
       }
-      // If we scroll too far right (into the third set), jump backward
-      else if (container.scrollLeft > singleSetWidth * 1.5) {
+      // Jump backward if we scroll too far right (into the second half of the third set)
+      else if (container.scrollLeft > singleSetWidth * 2.5) {
         container.style.scrollSnapType = 'none';
         container.scrollLeft -= singleSetWidth;
         container.style.scrollSnapType = 'x mandatory';
@@ -54,12 +61,24 @@ export default function Courses() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 300;
-      scrollContainerRef.current.scrollBy({
+      const container = scrollContainerRef.current;
+      const firstItem = container.children[0] as HTMLElement;
+      if (!firstItem) return;
+      
+      // Calculate exact scroll amount based on item width + gap
+      // We can get the gap by subtracting the first item's offsetLeft from the second item's offsetLeft
+      const secondItem = container.children[1] as HTMLElement;
+      const scrollAmount = secondItem ? secondItem.offsetLeft - firstItem.offsetLeft : firstItem.offsetWidth + 16;
+      
+      container.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
       });
     }
+  };
+
+  const openNotifyMe = () => {
+    window.dispatchEvent(new CustomEvent('openNotifyMe'));
   };
 
   return (
@@ -98,6 +117,7 @@ export default function Courses() {
             {infiniteCourses.map((course, index) => (
               <div 
                 key={index} 
+                onClick={openNotifyMe}
                 className="bg-gradient-to-br from-[#1a1d21] to-[#111315] rounded-xl p-6 border border-white/5 hover:border-[#FFB800]/30 hover:bg-[#1e2125] transition-all cursor-pointer group min-w-[260px] sm:min-w-[300px] snap-start flex-shrink-0 flex flex-col justify-between h-[180px] relative overflow-hidden"
               >
                 <div className="absolute top-4 right-4 text-white/5 font-black text-6xl group-hover:text-white/10 transition-colors select-none">

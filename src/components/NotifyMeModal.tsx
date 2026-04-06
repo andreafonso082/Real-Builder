@@ -1,0 +1,202 @@
+import { X, Bell } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import React, { useState } from 'react';
+
+const coursesList = [
+  { id: 'tiles', name: 'Tiles & Tiling' },
+  { id: 'plastering', name: 'Plastering / Microcement' },
+  { id: 'cleaning', name: 'Professional Cleaning' },
+  { id: 'assistant', name: 'Construction Assistant' },
+  { id: 'masonry', name: 'Masonry / Plastering' },
+  { id: 'drywall', name: 'Drywall (Pladur)' },
+  { id: 'framing', name: 'Framing' },
+  { id: 'steel', name: 'Steel Work' },
+  { id: 'logistics', name: 'Stock Management / Logistics' },
+];
+
+interface NotifyMeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function NotifyMeModal({ isOpen, onClose }: NotifyMeModalProps) {
+  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleCourseToggle = (courseId: string) => {
+    setSelectedCourses(prev => {
+      if (prev.includes(courseId)) {
+        return prev.filter(id => id !== courseId);
+      }
+      if (prev.length < 2) {
+        return [...prev, courseId];
+      }
+      return prev;
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setSelectedCourses([]);
+      onClose();
+    }, 3000);
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative w-full max-w-lg bg-[#15181b] border border-white/10 rounded-2xl shadow-2xl p-6 md:p-8 my-8"
+          >
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 bg-[#1a1d21] p-2 rounded-full"
+            >
+              <X size={20} />
+            </button>
+            
+            {!isSubmitted ? (
+              <>
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 bg-[#FFB800]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#FFB800]/20">
+                    <Bell className="text-[#FFB800]" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-black text-white mb-2 tracking-tight uppercase">
+                    Get Notified
+                  </h3>
+                  <p className="text-gray-400 text-sm">
+                    Leave your details below and we'll notify you as soon as new courses open.
+                  </p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">First Name</label>
+                      <input 
+                        type="text" 
+                        required
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors text-sm"
+                        placeholder="John"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">Last Name</label>
+                      <input 
+                        type="text" 
+                        required
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors text-sm"
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">Phone Number</label>
+                      <input 
+                        type="tel" 
+                        required
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors text-sm"
+                        placeholder="+351 900 000 000"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">City</label>
+                      <input 
+                        type="text" 
+                        required
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors text-sm"
+                        placeholder="Lisbon"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">Email Address</label>
+                    <input 
+                      type="email" 
+                      required
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors text-sm"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">Years of Experience</label>
+                    <select 
+                      required
+                      className="w-full bg-[#1a1d21] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB800] transition-colors text-sm appearance-none"
+                    >
+                      <option value="" disabled selected>Select your experience</option>
+                      <option value="less_than_1">Less than 1 year</option>
+                      <option value="1_to_2">1-2 years</option>
+                      <option value="3_to_5">3-5 years</option>
+                      <option value="5_plus">5+ years</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-2">
+                      Courses of Interest (Max 2)
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {coursesList.map(course => {
+                        const isSelected = selectedCourses.includes(course.id);
+                        const isDisabled = !isSelected && selectedCourses.length >= 2;
+                        
+                        return (
+                          <button
+                            key={course.id}
+                            type="button"
+                            onClick={() => handleCourseToggle(course.id)}
+                            disabled={isDisabled}
+                            className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+                              isSelected 
+                                ? 'bg-[#FFB800] border-[#FFB800] text-black font-bold' 
+                                : isDisabled
+                                  ? 'bg-white/5 border-white/5 text-gray-600 cursor-not-allowed'
+                                  : 'bg-white/5 border-white/10 text-gray-300 hover:border-[#FFB800]/50'
+                            }`}
+                          >
+                            {course.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <button 
+                    type="submit"
+                    className="w-full bg-[#FFB800] text-black font-black py-4 rounded-xl tracking-widest hover:bg-[#FFB800]/90 transition-colors mt-6"
+                  >
+                    NOTIFY ME
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Bell className="text-green-500" size={40} />
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4 tracking-tight uppercase">
+                  You're on the list!
+                </h3>
+                <p className="text-gray-400">
+                  We'll notify you as soon as new spots open for your selected courses.
+                </p>
+              </div>
+            )}
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}

@@ -36,7 +36,7 @@ export default function DiscountFormModal({ isOpen, onClose, isSubmitted, onSubm
             <div className="flex items-center justify-between p-6 border-b border-white/10 bg-[#1a1d21]">
               <div>
                 <h3 className="text-xl font-bold text-white uppercase tracking-tight">
-                  {isSubmitted ? 'Discount Secured' : 'Claim 50% Discount'}
+                  {isSubmitted ? 'Discount Secured' : 'Claim 100% Discount'}
                 </h3>
                 <p className="text-gray-400 text-sm mt-1">
                   {isSubmitted ? 'Your spot is reserved.' : 'Fill out the form below to secure your spot.'}
@@ -63,7 +63,7 @@ export default function DiscountFormModal({ isOpen, onClose, isSubmitted, onSubm
                   </div>
                   <h4 className="text-2xl font-bold text-white mb-2">Discount Claimed!</h4>
                   <p className="text-gray-400 mb-8">
-                    Thank you. Our team will contact you shortly to apply your 50% discount to your chosen course.
+                    Thank you. Our team will contact you shortly to apply your 100% discount to your chosen course.
                   </p>
                   <button 
                     onClick={onClose}
